@@ -14,9 +14,9 @@ An understating of fundamental vanilla JS concepts is what you will be graded on
 
 To achieve a Godkänt grade, your game must include:
 
-One or more constants
+One or more constants x
 
-One or more arrays
+One or more arrays x
 
 A random selection of an array index
 
