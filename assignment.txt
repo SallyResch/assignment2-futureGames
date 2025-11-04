@@ -18,9 +18,9 @@ One or more constants x
 
 One or more arrays x
 
-A random selection of an array index
+A random selection of an array index x
 
-A dynamic assignment of a variable (ie using prompt)
+A dynamic assignment of a variable (ie using prompt) x
 
 One or more while loops
 

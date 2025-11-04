@@ -1,4 +1,4 @@
-let gameDescription = "";
+let gameInstuctions = "";
 
 const userName = prompt("What is you name?");
 
@@ -41,4 +41,6 @@ if (userChoise === 1 || userChoise === 2 || userChoise === 3) {
 else {
   alert("Read the instructions dickhead");
 }
+
+
 
