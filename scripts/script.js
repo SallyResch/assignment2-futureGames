@@ -11,6 +11,14 @@ while (guessesArray.length < 10 && userPoints > 0) {
 }
 
 const guessCheck = (userGuess) => {
+
+  //Checks if the user typed in something other then a number:
+  if (isNaN(userGuess)) {
+    --userPoints;
+    alert(`Thats not a number! -1 point. \n Current points: ${userPoints}`);
+    return false;
+  }
+
   //if user typed in a to low or to high number according to the rules
   if (userGuess < 1 || userGuess > 100) {
     --userPoints
@@ -23,12 +31,7 @@ const guessCheck = (userGuess) => {
     alert(`You have already guessed that number ${guessesArray} \n -1 point. Current points: ${userPoints}`)
   }
 
-  //Checks if the user typed in somthing other then a number:
-  if (isNaN(userGuess)) {
-    --userPoints;
-    alert(`Thats not a number! -1 point. \n Current points: ${userPoints}`);
-    return false;
-  }
+
 }
 
 
