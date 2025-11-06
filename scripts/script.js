@@ -4,13 +4,12 @@ let randomNumber = Math.floor(Math.random() * 100) + 1;
 let guessesArray = [];
 let userPoints = 10;
 
-while (guessesArray.length < 10 && userPoints > 0) {
-  const userGuess = parseInt(prompt("Enter a number between 1 and 100:"));
-  guessCheck(userGuess);
-  break;
-}
-
 const guessCheck = (userGuess) => {
+  //Unvalid input
+  if (userGuess === null) {
+    alert(`Game cancelled. Thanks for visiting the games site`);
+    return "cancel";
+  }
 
   //Checks if the user typed in something other then a number:
   if (isNaN(userGuess)) {
@@ -28,11 +27,53 @@ const guessCheck = (userGuess) => {
   //If user already guessed that number
   if (guessesArray.includes(userGuess)) {
     --userPoints
-    alert(`You have already guessed that number ${guessesArray} \n -1 point. Current points: ${userPoints}`)
+    alert(`You have already guessed that number ${guessesArray} \n -1 point. Current points: ${userPoints}`);
+    return false;
   }
 
+  guessesArray.push(userGuess);
 
+  //Compare with the randomized secret number:
+  if (userGuess < randomNumber) {
+    alert("To low");
+    return false;
+  } else if (userGuess > randomNumber) {
+    alert("To high");
+    return false;
+  } else {
+    alert(`Congratulations! You guessed the number ${userGuess} which is the correct number: ${randomNumber}`);
+    return `You won with the points of ${userPoints}`
+  }
+};
+
+//Main Loop
+while (guessesArray.length < 10 && userPoints > 0) {
+
+  let userGuess = (prompt("Enter a number between 1 and 100:"));
+  //We parseInt after because the user could have written null
+  if (userGuess !== null) {
+    userGuess = parseInt(userGuess);
+  }
+
+  const result = guessCheck(userGuess);
+
+  if (result === "cancel") {
+    break
+  }
+
+  if (result === "win") {
+    break
+  }
+  break;
 }
+
+//After main loop
+if (userPoints <= 0) {
+  alert(`You ran out of points! Game over. The number was ${randomNumber}`);
+} else if (guessesArray.length >= 10 && guessesArray[guessesArray.length - 1] !== randomNumber) {
+  alert(`You've used all your attempts! Game over. The number was ${randomNumber}`);
+}
+alert(`Your guesses: ${guessesArray} \n Remaining points: ${userPoints}`);
 
 
 
