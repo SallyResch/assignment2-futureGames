@@ -3,28 +3,25 @@ alert("GUESS THE NUMBER GAME: \nGuess a number between 1 and 100 \nYou have 10 a
 let randomNumber = Math.floor(Math.random() * 100) + 1;
 let guessesArray = [];
 let userPoints = 10;
+const maxGuesses = 10;
 
 const guessCheck = (userGuess) => {
-  //Unvalid input
   if (userGuess === null) {
     alert(`Game cancelled. Thanks for visiting the games site`);
     return "cancel";
   }
 
-  //Checks if the user typed in something other then a number:
   if (isNaN(userGuess)) {
     --userPoints;
     alert(`Thats not a number! -1 point. \n Current points: ${userPoints}`);
     return false;
   }
 
-  //if user typed in a to low or to high number according to the rules
   if (userGuess < 1 || userGuess > 100) {
     --userPoints
     alert(`You guessed a number that was out of range of the rules\n You get a penalty of -1 from your points\n User Points: ${userPoints}`);
   }
 
-  //If user already guessed that number
   if (guessesArray.includes(userGuess)) {
     --userPoints
     alert(`You have already guessed that number ${guessesArray} \n -1 point. Current points: ${userPoints}`);
@@ -33,7 +30,6 @@ const guessCheck = (userGuess) => {
 
   guessesArray.push(userGuess);
 
-  //Compare with the randomized secret number:
   if (userGuess < randomNumber) {
     alert("To low");
     return false;
@@ -46,11 +42,11 @@ const guessCheck = (userGuess) => {
   }
 };
 
-//Main Loop
+
 while (guessesArray.length < 10 && userPoints > 0) {
 
-  let userGuess = (prompt("Enter a number between 1 and 100:"));
-  //We parseInt after because the user could have written null
+  let userGuess = prompt(`Enter a number between 1 and 100:\n ${guessesArray}`);
+
   if (userGuess !== null) {
     userGuess = parseInt(userGuess);
   }
@@ -64,10 +60,8 @@ while (guessesArray.length < 10 && userPoints > 0) {
   if (result === "win") {
     break
   }
-  break;
 }
 
-//After main loop
 if (userPoints <= 0) {
   alert(`You ran out of points! Game over. The number was ${randomNumber}`);
 } else if (guessesArray.length >= 10 && guessesArray[guessesArray.length - 1] !== randomNumber) {
