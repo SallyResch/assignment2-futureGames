@@ -1,30 +1,36 @@
-alert("GUESS THE NUMBER GAME: \nGuess a number between 1 and 100 \nYou have 10 attempts to success! \nGood Luck! \nOh and by the way:\n You have 10 points, if you get to zero you loose mouhahaha");
+alert("GUESS THE NUMBER GAME: \nGuess a number between 1 and 100 \nYou have 10 attempts to succeed! \nGood Luck! \nOh and by the way:\n You have 100 points, if you get to zero you loose mouhahaha. You get pointpenalty if you: \n Write same number twice, \n Guess a number out of rangeof 1-100\n Or type in something that is not an number");
 
 let randomNumber = Math.floor(Math.random() * 100) + 1;
 let guessesArray = [];
-let userPoints = 10;
+let userPoints = 100;
 const maxGuesses = 10;
 
-const guessCheck = (userGuess) => {
+const isCancelled = (guess) => guess === null;
+const isNotNumber = (guess) => isNaN(guess);
+const isOutOfRange = (guess) => guess < 1 || guess > 100;
+const isDuplicateGuess = (guess) => guessesArray.includes(guess);
+
+const validateGuess = (userGuess) => {
   if (userGuess === null) {
     alert(`Game cancelled. Thanks for visiting the games site`);
     return "cancel";
   }
 
   if (isNaN(userGuess)) {
-    --userPoints;
-    alert(`Thats not a number! -1 point. \n Current points: ${userPoints}`);
+    userPoints - 20;
+    alert(`Thats not a number dickhead! -20 point. \n Current points: ${userPoints}`);
     return false;
   }
 
   if (userGuess < 1 || userGuess > 100) {
-    --userPoints
-    alert(`You guessed a number that was out of range of the rules\n You get a penalty of -1 from your points\n User Points: ${userPoints}`);
+    userPoints - 10;
+    alert(`You guessed a number that was out of range of the rules dumbass\n You get a penalty of -20 points\n User Points: ${userPoints}`);
+    return false;
   }
 
   if (guessesArray.includes(userGuess)) {
-    --userPoints
-    alert(`You have already guessed that number ${guessesArray} \n -1 point. Current points: ${userPoints}`);
+    userPoints - 20;
+    alert(`You have already guessed the number ${guessesArray} \n -20 point, stupid. Current points: ${userPoints}`);
     return false;
   }
 
@@ -32,9 +38,11 @@ const guessCheck = (userGuess) => {
 
   if (userGuess < randomNumber) {
     alert("To low");
+    userPoints + 10;
     return false;
   } else if (userGuess > randomNumber) {
     alert("To high");
+    userPoints + 10;
     return false;
   } else {
     alert(`Congratulations! You guessed the number ${userGuess} which is the correct number: ${randomNumber}`);
