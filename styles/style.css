@@ -9,13 +9,35 @@ html {
 body {
   height: 100%;
   margin: 0;
-  background-image: url("../images/dungeon.png");
-  background-position: center;
-  background-repeat: no-repeat;
-  background-size: cover;
+  background-color: gray;
 }
 
-h1 {
+.header-title {
   text-align: center;
-  color: antiquewhite;
+  color: darkorange;
+  background-color: black;
+}
+
+.rules-title {
+  font-size: 32px;
+}
+
+.rules-content {
+  text-align: center;
+  max-width: 320px;
+  margin: auto;
+  background-color: darkorange;
+  padding: 10px 60px;
+  border-radius: 5px;
+  border: 2px solid black;
+}
+
+.start-button {
+  background-color: black;
+  color: bisque;
+  padding: 10px;
+}
+
+.hidden {
+  display: none;
 }

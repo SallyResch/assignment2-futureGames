@@ -8,7 +8,33 @@
     <title>Sally Resch || Dungeon Game</title>
   </head>
   <body>
-    <h1>Dungeon Game</h1>
-    <div class="main-board"></div>
+    <h1 class="header-title">Guess the number - Game</h1>
+    <div class="main">
+      <div class="rules-content">
+        <div class="rule">
+          <h2 class="rules-title">Rules</h2>
+          <h3>Objective</h3>
+          <p>
+            The goal of the game is to guess the secret number chosen by the
+            computer within a range of 1 to 100.
+          </p>
+        </div>
+        <div class="rule">
+          <h3>Gameplay</h3>
+          <p>Player guesses the secret number:</p>
+          <p>
+            For every guess the computer tells the player if the number is to
+            high or to low
+          </p>
+        </div>
+        <div class="rule">
+          <h3>Winning</h3>
+          <p>The player guesses the correct number</p>
+        </div>
+        <button class="start-button">Start Game</button>
+      </div>
+
+      <div class="game-content hidden"></div>
+    </div>
   </body>
 </html>
