@@ -5,11 +5,11 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="stylesheet" href="./styles/style.css" />
     <script src="./scripts/script.js" defer></script>
-    <title>Sally Resch || Dungeon Game</title>
+    <title>Guess the number</title>
   </head>
   <body>
-    <h1 class="header-title">Guess the number - Game</h1>
-    <div class="main">
+    <h1 class="header-title">Guess the number</h1>
+    <main class="main">
       <div class="rules-content">
         <div class="rule">
           <h2 class="rules-title">Rules</h2>
@@ -33,8 +33,23 @@
         </div>
         <button class="start-button">Start Game</button>
       </div>
-
-      <div class="game-content hidden"></div>
-    </div>
+      <div class="game-content hidden">
+        <div class="result">
+          <h3 class="guesses"></h3>
+          <h3 class="lowOrHigh"></h3>
+          <h3 class="lastResult red green"></h3>
+        </div>
+        <label for="userGuess">Enter a number (1-100):</label>
+        <input
+          type="number"
+          min="1"
+          max="100"
+          required
+          class="userGuess"
+          id="userGuess"
+        />
+        <button type="submit" class="userGuessSubmit">Guess!</button>
+      </div>
+    </main>
   </body>
 </html>

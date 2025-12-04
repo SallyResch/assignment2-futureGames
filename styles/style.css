@@ -1,5 +1,6 @@
 * {
   box-sizing: border-box;
+
 }
 
 html {
@@ -16,18 +17,22 @@ body {
   text-align: center;
   color: darkorange;
   background-color: black;
+  margin: 0 0 20px 0;
+  padding: 1rem;
 }
 
 .rules-title {
   font-size: 32px;
+  margin: 0;
 }
 
-.rules-content {
+.rules-content,
+.game-content {
   text-align: center;
   max-width: 320px;
   margin: auto;
   background-color: darkorange;
-  padding: 10px 60px;
+  padding: 30px 60px;
   border-radius: 5px;
   border: 2px solid black;
 }
@@ -40,4 +45,12 @@ body {
 
 .hidden {
   display: none;
+}
+
+.red {
+  background-color: red;
+}
+
+.green {
+  background-color: green;
 }
