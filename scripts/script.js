@@ -1,83 +1,85 @@
-alert("GUESS THE NUMBER GAME: \nGuess a number between 1 and 100 \nYou have 10 attempts to succeed! \nGood Luck! \nOh and by the way:\n You have 100 points, if you get to zero you loose mouhahaha. You get pointpenalty if you: \n Write same number twice, \n Guess a number out of rangeof 1-100\n Or type in something that is not an number");
-
+const startButton = document.querySelector(".start-button");
+const rulesContent = document.querySelector(".rules-content");
+const gameContent = document.querySelector(".game-content");
 let randomNumber = Math.floor(Math.random() * 100) + 1;
-let guessesArray = [];
-let userPoints = 100;
-const maxGuesses = 10;
+const userGuessInput = document.querySelector(".userGuess");
+const guesses = document.querySelector(".guesses");
+const guessSubmit = document.querySelector(".userGuessSubmit");
+let amountOfGuesses = 1;
+const resultText = document.querySelector(".lastResult");
+const lowOrHigh = document.querySelector(".lowOrHigh");
 
-const isCancelled = (guess) => guess === null;
-const isNotNumber = (guess) => isNaN(guess);
-const isOutOfRange = (guess) => guess < 1 || guess > 100;
-const isDuplicateGuess = (guess) => guessesArray.includes(guess);
+let newResetButton;
 
-const validateGuess = (userGuess) => {
-  if (userGuess === null) {
-    alert(`Game cancelled. Thanks for visiting the games site`);
-    return "cancel";
+const guessCheck = () => {
+  const userGuess = Number(userGuessInput.value);
+
+  if (amountOfGuesses === 1) {
+    guesses.textContent = "Previous guesses: ";
   }
+  guesses.textContent = `${guesses.textContent} ${userGuess}`;
 
-  if (isNaN(userGuess)) {
-    userPoints - 20;
-    alert(`Thats not a number dickhead! -20 point. \n Current points: ${userPoints}`);
-    return false;
-  }
-
-  if (userGuess < 1 || userGuess > 100) {
-    userPoints - 10;
-    alert(`You guessed a number that was out of range of the rules dumbass\n You get a penalty of -20 points\n User Points: ${userPoints}`);
-    return false;
-  }
-
-  if (guessesArray.includes(userGuess)) {
-    userPoints - 20;
-    alert(`You have already guessed the number ${guessesArray} \n -20 point, stupid. Current points: ${userPoints}`);
-    return false;
-  }
-
-  guessesArray.push(userGuess);
-
-  if (userGuess < randomNumber) {
-    alert("To low");
-    userPoints + 10;
-    return false;
-  } else if (userGuess > randomNumber) {
-    alert("To high");
-    userPoints + 10;
-    return false;
+  if (userGuess === randomNumber) {
+    resultText.textContent = "Congratulations! You got it right!";
+    resultText.classList.add("green");
+    resultText.classList.remove("red");
+    lowOrHigh.textContent = "";
+    setGameOver();
   } else {
-    alert(`Congratulations! You guessed the number ${userGuess} which is the correct number: ${randomNumber}`);
-    return `You won with the points of ${userPoints}`
+    resultText.textContent = "Wrong!";
+    resultText.classList.add("red");
+    resultText.classList.remove("green");
+
+    if (userGuess < randomNumber) {
+      lowOrHigh.textContent = "Guess is too low!";
+    } else {
+      lowOrHigh.textContent = "Guess is too high!";
+    }
   }
+
+  amountOfGuesses++;
+  userGuessInput.value = "";
+  userGuessInput.focus(); // Fix
+};
+guessSubmit.addEventListener("click", guessCheck);
+
+const setGameOver = () => {
+  userGuessInput.disabled = true;
+  guessSubmit.disabled = true;
+
+  newResetButton = document.createElement("button");
+  newResetButton.textContent = "Start new game";
+
+  gameContent.append(newResetButton); // Fix
+  newResetButton.addEventListener("click", resetGame);
 };
 
+const resetGame = () => {
+  amountOfGuesses = 1;
 
-while (guessesArray.length < 10 && userPoints > 0) {
-
-  let userGuess = prompt(`Enter a number between 1 and 100:\n ${guessesArray}`);
-
-  if (userGuess !== null) {
-    userGuess = parseInt(userGuess);
+  const resetResults = document.querySelectorAll(".result h3");
+  for (const resetResult of resetResults) {
+    resetResult.textContent = "";
   }
 
-  const result = guessCheck(userGuess);
+  newResetButton.remove();
 
-  if (result === "cancel") {
-    break
-  }
+  userGuessInput.disabled = false;
+  guessSubmit.disabled = false;
+  userGuessInput.value = "";
+  userGuessInput.focus();
 
-  if (result === "win") {
-    break
-  }
-}
+  resultText.classList.remove("red");
+  resultText.classList.remove("green");
 
-if (userPoints <= 0) {
-  alert(`You ran out of points! Game over. The number was ${randomNumber}`);
-} else if (guessesArray.length >= 10 && guessesArray[guessesArray.length - 1] !== randomNumber) {
-  alert(`You've used all your attempts! Game over. The number was ${randomNumber}`);
-}
-alert(`Your guesses: ${guessesArray} \n Remaining points: ${userPoints}`);
+  randomNumber = Math.floor(Math.random() * 100) + 1;
+};
 
+const startGame = () => {
+  startButton.addEventListener("click", () => {
+    rulesContent.classList.add("hidden");
+    gameContent.classList.remove("hidden");
+  });
+};
 
-
-
-
+startGame();
