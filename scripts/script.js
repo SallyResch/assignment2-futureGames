@@ -9,6 +9,8 @@ const guessSubmit = document.querySelector(".userGuessSubmit");
 const resultText = document.querySelector(".lastResult");
 const lowOrHigh = document.querySelector(".lowOrHigh");
 
+const cancelButton = document.querySelector(".cancel-button");
+
 let randomNumber;
 let guessCount;
 let userGuesses;
@@ -19,11 +21,18 @@ const startGame = () => {
   startButton.addEventListener("click", () => {
     rulesContent.classList.add("hidden");
     gameContent.classList.remove("hidden");
+    cancelButton.classList.remove("hidden");
     initializeGame();
   });
 };
 
+const returnToStart = () => {
+  gameContent.classList.add("hidden");
+  cancelButton.classList.add("hidden");
+  rulesContent.classList.remove("hidden");
 
+  initializeGame();
+};
 const initializeGame = () => {
   randomNumber = Math.floor(Math.random() * 100) + 1;
   guessCount = 0;
@@ -100,5 +109,5 @@ const setGameOver = () => {
 
 
 guessSubmit.addEventListener("click", guessCheck);
-
+cancelButton.addEventListener("click", returnToStart);
 startGame();
