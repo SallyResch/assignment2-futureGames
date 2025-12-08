@@ -2,14 +2,23 @@ const startButton = document.querySelector(".start-button");
 const rulesContent = document.querySelector(".rules-content");
 const gameContent = document.querySelector(".game-content");
 
-const userGuessInput = document.querySelector(".userGuess");
+const userGuessInput = document.querySelector(".user-guess");
 const guessesText = document.querySelector(".guesses");
-const guessSubmit = document.querySelector(".userGuessSubmit");
+const guessSubmit = document.querySelector(".user-guess-submit");
 
-const resultText = document.querySelector(".lastResult");
-const lowOrHigh = document.querySelector(".lowOrHigh");
+const resultText = document.querySelector(".last-result");
+const lowOrHigh = document.querySelector(".low-or-high");
 
 const cancelButton = document.querySelector(".cancel-button");
+
+let maxNumber;
+let maxGuesses;
+
+const difficulties = {
+  easy: { maxNumber: 20, maxGuesses: 15 },
+  medium: { maxNumber: 50, maxGuesses: 10 },
+  hard: { maxNumber: 100, maxGuesses: 5 }
+}
 
 let randomNumber;
 let guessCount;
@@ -19,6 +28,9 @@ let resetButton;
 
 const startGame = () => {
   startButton.addEventListener("click", () => {
+    const selected = document.querySelector('input[name="difficulty"]:checked').value;
+    maxNumber = difficulties[selected].maxNumber;
+    maxGuesses = difficulties[selected].maxGuesses;
     rulesContent.classList.add("hidden");
     gameContent.classList.remove("hidden");
     cancelButton.classList.remove("hidden");
@@ -35,9 +47,13 @@ const returnToStart = () => {
 };
 
 const initializeGame = () => {
-  randomNumber = Math.floor(Math.random() * 100) + 1;
+  randomNumber = Math.floor(Math.random() * maxNumber) + 1;
   guessCount = 0;
   userGuesses = [];
+
+  document.querySelector(".user-guess-label").textContent =
+    `Enter a number (From 1 to ${maxNumber}):`;
+  userGuessInput.setAttribute("max", maxNumber);
 
   userGuessInput.disabled = false;
   guessSubmit.disabled = false;
@@ -75,8 +91,8 @@ const guessCheck = () => {
 
   guessesText.textContent = "Previous guesses: " + userGuesses.join(" ");
 
-  if (guessCount === 10 && userGuess !== randomNumber) {
-    resultText.textContent = "GAME OVER! You've used all 10 guesses.";
+  if (guessCount === maxGuesses && userGuess !== randomNumber) {
+    resultText.textContent = "GAME OVER! You've used all guesses.";
     resultText.classList.add("red");
     lowOrHigh.textContent = `The correct number was ${randomNumber}.`;
     setGameOver();
