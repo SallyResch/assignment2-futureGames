@@ -33,6 +33,7 @@ const returnToStart = () => {
 
   initializeGame();
 };
+
 const initializeGame = () => {
   randomNumber = Math.floor(Math.random() * 100) + 1;
   guessCount = 0;
@@ -72,11 +73,15 @@ const guessCheck = () => {
   userGuesses.push(userGuess);
   guessCount++;
 
-  guessesText.textContent = "Previous guesses: ";
-  for (let i = 0; i < userGuesses.length; i++) {
-    guessesText.textContent += userGuesses[i] + " ";
-  }
+  guessesText.textContent = "Previous guesses: " + userGuesses.join(" ");
 
+  if (guessCount === 10 && userGuess !== randomNumber) {
+    resultText.textContent = "GAME OVER! You've used all 10 guesses.";
+    resultText.classList.add("red");
+    lowOrHigh.textContent = `The correct number was ${randomNumber}.`;
+    setGameOver();
+    return;
+  }
 
   if (userGuess === randomNumber) {
     resultText.textContent = "Congratulations! You guessed the number!";
@@ -94,6 +99,7 @@ const guessCheck = () => {
   userGuessInput.value = "";
   userGuessInput.focus();
 };
+
 
 const setGameOver = () => {
   userGuessInput.disabled = true;
